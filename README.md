@@ -4,7 +4,7 @@
  1. Learning C++ Guide: <a href="https://stackoverflow.com/questions/388242/the-definitive-c-book-guide-and-list">Stack Overflow C++ Guide</a> <br />
  2. C++ Setup: <a href="https://www.youtube.com/watch?v=0HD0pqVtsmw">How to Download and Install C Cpp Toolset ( gcc g++ gdb ) in Windows 10 using mingw-w64 and msys2</a><br /><hr>
 # GitHub
-1. <a href="https://www.youtube.com/watch?v=xuq73UJrbwg">Download GitHub Desktop </a> <br />
+1. <a href="https://www.youtube.com/watch?v=xuq73UJrbwg">Download and install GitHub Desktop </a> <br />
 2. Created new repository at desired location: <br /> ![New Repository](https://github.com/F3INTH34RTED/Cpp/blob/main/00SetupImages/GitHubDesktop-NewRepo.jpg) <br />
 3. Repository Dashboard: <br /> ![Repository Dashboard](https://github.com/F3INTH34RTED/Cpp/blob/main/00SetupImages/GitHubDekstop-Dashboard.jpg) <br /><br />
 <hr>
