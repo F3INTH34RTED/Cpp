@@ -15,6 +15,7 @@
 1. <a href="https://code.visualstudio.com/"> Download and install Visual Studio Code </a><br />
 2. Opening repository in VS Code:<br /> `Open in Visual Studio Code` from GitHub dektop dashboard under `Open the repository in your external editor` <br /> ![Repository Dashboard](https://github.com/F3INTH34RTED/Cpp/blob/main/00SetupImages/GitHubDekstop-Dashboard.jpg) <br />Opens the VS Project Dashboard:<br /> ![Visual Studio Code Dashboard](https://github.com/F3INTH34RTED/Cpp/blob/main/00SetupImages/VSCode-Dashboard.jpg) <br />
 4. Setup C++ on Visual Studio Code: <a href="https://www.youtube.com/watch?v=77v-Poud_io&t=361s">How to Set up Visual Studio Code for C and C++ Programming</a><br />
+5. Setup C++ on Visual Studio Code for executing and debugging: <a href="https://www.youtube.com/watch?v=rgCJbsCSARM">How to set up Visual Studio Code for Executing and Debugging C++ Programs | Tutorial for Beginners</a><br />
 <hr>
 
 # List of books reading/read:
