@@ -31,7 +31,6 @@ void Exercise21();
 void Exercise22();
 void Exercise23();
 void Exercise24();
-
 void Exercise25();
 
 int main()
