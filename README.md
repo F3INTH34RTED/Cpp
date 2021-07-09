@@ -4,7 +4,7 @@
  List of books reading/read: <br />
 <ol>
 <li> Beginner
-    <ol>
+    <ol list-style-type="lower-alpha">
         <li> <a href = "https://www.amazon.com/C-Primer-Stanley-B-Lippman-ebook-dp-B0091I7FEQ/dp/B0091I7FEQ/ref=mt_other?_encoding=UTF8&me=&qid="> C++ Primer (Incomplete) </a> </li>
     </ol>
 </li>
