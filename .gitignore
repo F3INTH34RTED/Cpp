@@ -31,5 +31,8 @@
 *.out
 *.app
 
-#Ignore the first file
+# Workspace Build Configurations
+.vscode/
+
+# Code Base File
 00CodeBase.cpp
