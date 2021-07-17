@@ -35,6 +35,7 @@ void Exercise28();
 void Exercise29();
 void Exercise30();
 void Exercise31();
+void Exercise32();
 
 int main()
 {
@@ -70,7 +71,7 @@ int main()
     // Exercise30();
     // Exercise31();
     // Exercise32();
-    
+
     return 0;
 }
 
