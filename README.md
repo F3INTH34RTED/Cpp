@@ -21,7 +21,7 @@
 # List of books reading/read:
 
 1. <a href = "https://github.com/F3INTH34RTED/Cpp/tree/main/01Beginner">Beginner </a> <br />
-    1.1. <a href = "https://www.amazon.com/C-Primer-Stanley-B-Lippman-ebook-dp-B0091I7FEQ/dp/B0091I7FEQ/ref=mt_other?_encoding=UTF8&me=&qid=">C++ Primer (Incomplete) </a><br />
+    1.1. <a href = "https://www.amazon.com/C-Primer-Stanley-B-Lippman-ebook-dp-B0091I7FEQ/dp/B0091I7FEQ/ref=mt_other?_encoding=UTF8&me=&qid=">C++ Primer (Reading) </a><br />
     <br />
 2. Intermediate
 3. Advanced
