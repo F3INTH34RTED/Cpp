@@ -63,7 +63,13 @@ int main()
     // Exercise23();
     // Exercise24();
     // Exercise25();
-    Exercise26();
+    // Exercise26();
+    // Exercise27();
+    // Exercise28();
+    // Exercise29();
+    // Exercise30();
+    // Exercise31();
+    // Exercise32();
     return 0;
 }
 
