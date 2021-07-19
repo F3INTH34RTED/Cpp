@@ -3,6 +3,14 @@
 
 using std::cout;
 using std::cin;
+using std::string;
+
+struct Sales_data
+{
+    string bookNo;
+    unsigned int units_sold = 0;
+    double revenue = 0.0;
+};
 
 void Exercise01();
 void Exercise02();
@@ -36,6 +44,15 @@ void Exercise29();
 void Exercise30();
 void Exercise31();
 void Exercise32();
+void Exercise33();
+void Exercise34();
+void Exercise35();
+void Exercise36();
+void Exercise37();
+void Exercise38();
+void Exercise39();
+void Exercise40();
+void Exercise41();
 
 int main()
 {
@@ -71,6 +88,15 @@ int main()
     // Exercise30();
     // Exercise31();
     // Exercise32();
+    // Exercise33();
+    // Exercise34();
+    // Exercise35();
+    // Exercise36();
+    // Exercise37();
+    // Exercise38();
+    // Exercise39();
+    // Exercise40();
+    Exercise41();
 
     return 0;
 }
@@ -394,4 +420,149 @@ void Exercise32()
     "2. null is basically an integer literal `0` and hence, we cannot use an integer datatype to initialize an integer pointer.\n"
     "The correct code would be:\n"
     "int i = 0, *p = nullptr;\n";
+}
+
+// Function to discuss what happens in each of the assignments 
+void Exercise33()
+{
+    cout << "a = 42 is legal\n";
+    cout << "b = 42 is legal\n";
+    cout << "c = 42 is legal\n";
+    cout << "d = 42 is illegal because d need to point to an address and not a literal\n";
+    cout << "e = 42 is illegal because 'e' is expecting to point to a constant integer's memory address\n";
+    cout << "g = 42 is illegal because 'g' refers to a constant integer, and we cannot use 'g' to change the value of a constant integer it is referring to\n";
+}
+
+// Function to output the code and validate the predictions made in exercise 33
+void Exercise34()
+{
+    int i = 0, &r = i;
+    const int ci = i, &cr = ci;
+    auto a = r;         // int a = r
+    auto b = ci;        // int b = ci (top level constants are ignored in auto)
+    auto c = cr;        // int c = cr
+    auto d = &i;        // int *d = &i
+    auto e = &ci;       // const int *e = &ci (& of a const object is low level const)   
+    auto &g = ci;       // const int &g = ci
+    cout << "Before assignments:\n";
+    cout << "a = " << a << '\n';
+    cout << "b = " << b << '\n';
+    cout << "c = " << c << '\n';
+    cout << "d = " << *d << '\n';
+    cout << "e = " << *e << '\n';
+    cout << "g = " << g << '\n';
+    // Assignments
+    a = 42;
+    b = 42;
+    c = 42;
+    // d = 42;
+    // e = 42;
+    // g = 42;
+    cout << "After assignments:\n";
+    cout << "a = " << a << '\n';
+    cout << "b = " << b << '\n';
+    cout << "c = " << c << '\n';
+}
+
+// Function to deduce the types of variables
+void Exercise35()
+{
+    const int i = 42;
+    auto j = i; // int j = i
+    const auto &k = i; // const int &k = i
+    auto *p = &i; // const int *p = &i
+    const auto j2 = i; // const int j2 = i
+    const auto &k2 = i; // const int &k2 = i
+}
+
+// Function to deduce the types of variables and their value
+void Exercise36()
+{
+    cout << "Code and it's expected outcome:\n";
+    cout << "int a = 3, b = 4\n";
+    cout << "decltype(a) c = a;\tint c = a;\n";
+    cout << "decltype((b)) d = a;\tint &d = a;\n";
+    cout << "++c;\t c = 4\n";
+    cout << "++d;\t a = 4 and d = 4\n";
+    int a = 3, b = 4;
+    decltype(a) c = a;
+    decltype((b)) d = a;
+    ++c; ++d;
+    cout << "Outcome:\n";
+    cout << "a = " << a << '\n';
+    cout << "b = " << b << '\n';
+    cout << "c = " << c << '\n';
+    cout << "d = " << d << '\n';
+}
+
+// Function to determine the type and value of each variable
+void Exercise37()
+{
+    cout << "int a = 3, b = 4;\n";
+    cout << "decltype(a) c = a;\t int c = a;\n";
+    cout << "decltype(a = b) d = a\t int &d = a;\n";
+}
+
+// Function to determine the type and value of each variable
+void Exercise38()
+{
+    cout << "auto ignores top level constants whereas decltype does not ignore top level constants.\n"
+    "For example: const int i = 45;\n"
+    "auto j = i and the type of j is int\n"
+    "(decltype) k = i and the type of k is const int k = i\n";
+}
+
+// Function to show what happens when a semi-colon is not there after the struct ends.
+void Exercise39()
+{
+    cout << "Expected a ';'\n";
+}
+
+// Function to show custom Sales_data class
+void Exercise40()
+{
+    cout << "Refer to `struct Sales_data`\n";
+}
+
+// Function to redo exercise 21 and 22 from 01GettingStarted using custome Sales data struct
+void Exercise41()
+{
+    cout << "Chapter 1 - Exerice 21\n----------------------------------------\n";
+    Sales_data data1, data2;
+    double price = 0.0;
+    cout << "Enter book 1 ISBN, units sold, and the price of each book: ";
+    cin >> data1.bookNo >> data1.units_sold >> price;
+    data1.revenue = data1.units_sold * price; 
+    cout << "Enter book 2 ISBN, units sold, and the price of each book: ";
+    cin >> data2.bookNo >> data2.units_sold >> price;
+    data2.revenue = data2.units_sold * price;
+    cout << "Book 1 ISBN: " << data1.bookNo << '\n';
+    cout << "Book 2 ISBN: " << data2.bookNo << '\n';
+    cout << "Book 1 units sold: " << data1.units_sold << '\n';
+    cout << "Book 2 units sold: " << data2.units_sold << '\n';
+    cout << "Book 1 revenue: " << data1.revenue << '\n';
+    cout << "Book 2 revenue: " << data2.revenue << '\n';
+    if (data1.bookNo == data2.bookNo)
+    {
+        cout << "Total units sold: " << data1.units_sold + data2.units_sold << '\n';
+        cout << "Total revenue: " << data1.revenue + data2.revenue << '\n';
+    }
+    else cout << "The ISBN do not match!\n";
+    cout << "\n-----------------------------------\nChapter 1 - Exerice 22\n----------------------------------------\n";
+    cout << "Enter book 1 ISBN: ";
+    cin >> data1.bookNo;
+    int units_sold = 0;
+    double book_price = 0.0;
+    Sales_data data3;
+    while (true)
+    {
+        cout << "Enter book units sold and price or enter -1 to exit: ";
+        cin >> units_sold >> book_price;
+        if (units_sold < 0 || book_price < 0) break;
+        book_price += price;
+        data3.units_sold += units_sold;
+    }
+    data3.revenue = data3.units_sold * book_price;
+    cout << "Total units sold: " << data3.units_sold << '\n';
+    cout << "Total revenue: " << data3.revenue << '\n';
 }
