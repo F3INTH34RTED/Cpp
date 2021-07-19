@@ -1,5 +1,6 @@
 #include <iostream>
 #include <typeinfo>
+#include "Sales_item.h"
 
 using std::cout;
 using std::cin;
@@ -549,20 +550,201 @@ void Exercise41()
     }
     else cout << "The ISBN do not match!\n";
     cout << "\n-----------------------------------\nChapter 1 - Exerice 22\n----------------------------------------\n";
-    cout << "Enter book 1 ISBN: ";
-    cin >> data1.bookNo;
-    int units_sold = 0;
-    double book_price = 0.0;
     Sales_data data3;
+    cout << "Enter book isbn: ";
+    cin >> data3.bookNo;
+    double book_price = 1.0;
+    int units_sold = 1;
     while (true)
     {
-        cout << "Enter book units sold and price or enter -1 to exit: ";
-        cin >> units_sold >> book_price;
-        if (units_sold < 0 || book_price < 0) break;
-        book_price += price;
+        cout << "Enter book price or enter -1 to quit: ";
+        cin >> book_price;
+        if (book_price < 0) break;
+        cout << "Enter units sold or enter -1 to quit: ";
+        cin >> units_sold;
+        if (units_sold < 0) break;
         data3.units_sold += units_sold;
+        data3.revenue += book_price * data3.units_sold;
+        cout << "Accumulated units sold: " << data3.units_sold << '\n';
+        cout << "Accumulated revenue: " << data3.revenue << '\n';
     }
-    data3.revenue = data3.units_sold * book_price;
-    cout << "Total units sold: " << data3.units_sold << '\n';
-    cout << "Total revenue: " << data3.revenue << '\n';
+    cout << "\n-----------------------------------\nChapter 1 - Exerice 23\n----------------------------------------\n";
+    Sales_data current_data, data4;
+    data4.bookNo = "";
+    int counter = 1;
+    while(current_data.bookNo != "-1")
+    {
+        cout << "Enter book isbn or -1 to quit: ";
+        cin >> current_data.bookNo;
+        if (current_data.bookNo != data4.bookNo)
+        {
+            if (data4.bookNo != "") cout << "Book " << data4.bookNo << " has occured " << counter << " times.\n";
+            data4.bookNo = current_data.bookNo;
+            counter = 1;
+            cout << "Book " << data4.bookNo << " has occured " << counter << " times.\n";
+            continue;
+        }
+        cout << "Book " << current_data.bookNo << " has occured " << ++counter << " times.\n";
+    }
+    cout << "\n-----------------------------------\nChapter 1 - Exerice 24\n----------------------------------------\n";
+    cout << "ISBN Input: a a a a, b b b b, c c c c, d d d d, e e e e, -1\n"
+    "a: a occurs 1 times\ta occurs 2 times\ta occurs 2 times\ta occurs 4 times\n"
+    "b: a occurs 4 times\tb occurs 1 times\tb occurs 2 times\tb occurs 3 times\tb occurs 4 times\n"
+    "c: b occurs 4 times\tc occurs 1 times\tc occurs 2 times\tc occurs 3 times\tc occurs 4 times\n"
+    "d: c occurs 4 times\td occurs 1 times\td occurs 2 times\td occurs 3 times\td occurs 4 times\n"
+    "e: d occurs 4 times\te occurs 1 times\te occurs 2 times\te occurs 3 times\te occurs 4 times\n";
+    cout << "\n-----------------------------------\nChapter 1 - Exerice 25\n----------------------------------------\n";
+    Sales_data total;
+    cout << "Enter book number or -1 to quit: ";
+    cin >> total.bookNo;
+    if (total.bookNo == "-1") return;
+
+    cout << "Enter units sold or -1 to quit: ";
+    cin >> total.units_sold;
+    if (total.units_sold == -1) return;
+
+    cout << "Enter revenue or -1 to quit: ";
+    cin >> total.revenue;
+    if (total.revenue == -1) return;
+
+    Sales_data transaction;
+    while (true)
+    {
+        cout << "Enter book number or -1 to quit: ";
+        cin >> transaction.bookNo;
+        if (transaction.bookNo == "-1") return;
+
+        cout << "Enter units sold or -1 to quit: ";
+        cin >> transaction.units_sold;
+        if (transaction.units_sold == -1) return;
+
+        cout << "Enter revenue or -1 to quit: ";
+        cin >> transaction.revenue;
+        if (transaction.revenue == -1) return;
+    
+        if (transaction.bookNo == total.bookNo)
+        {
+            total.units_sold += transaction.units_sold;
+            total.revenue += transaction.revenue;
+        }
+        else
+        {
+            cout << "Book ISBN: " << total.bookNo << "\tTotal units sold: " << total.units_sold << "\tTotal revenue: " << total.revenue << '\n';
+            total.bookNo = transaction.bookNo;
+            total.units_sold = transaction.units_sold;
+            total.revenue = transaction.revenue;
+        }
+    }
+}
+
+// Function to redo exercise 21 and 22 from 01GettingStarted using custom Sales item struct
+void Exercise42()
+{
+    cout << "Chapter 1 - Exerice 21\n----------------------------------------\n";
+    Sales_item data1, data2;
+    double price = 0.0;
+    cout << "Enter book 1 ISBN, units sold, and the price of each book: ";
+    cin >> data1.bookNo >> data1.units_sold >> price;
+    data1.revenue = data1.units_sold * price; 
+    cout << "Enter book 2 ISBN, units sold, and the price of each book: ";
+    cin >> data2.bookNo >> data2.units_sold >> price;
+    data2.revenue = data2.units_sold * price;
+    cout << "Book 1 ISBN: " << data1.bookNo << '\n';
+    cout << "Book 2 ISBN: " << data2.bookNo << '\n';
+    cout << "Book 1 units sold: " << data1.units_sold << '\n';
+    cout << "Book 2 units sold: " << data2.units_sold << '\n';
+    cout << "Book 1 revenue: " << data1.revenue << '\n';
+    cout << "Book 2 revenue: " << data2.revenue << '\n';
+    if (data1.bookNo == data2.bookNo)
+    {
+        cout << "Total units sold: " << data1.units_sold + data2.units_sold << '\n';
+        cout << "Total revenue: " << data1.revenue + data2.revenue << '\n';
+    }
+    else cout << "The ISBN do not match!\n";
+    cout << "\n-----------------------------------\nChapter 1 - Exerice 22\n----------------------------------------\n";
+    Sales_item data3;
+    cout << "Enter book isbn: ";
+    cin >> data3.bookNo;
+    double book_price = 1.0;
+    int units_sold = 1;
+    while (true)
+    {
+        cout << "Enter book price or enter -1 to quit: ";
+        cin >> book_price;
+        if (book_price < 0) break;
+        cout << "Enter units sold or enter -1 to quit: ";
+        cin >> units_sold;
+        if (units_sold < 0) break;
+        data3.units_sold += units_sold;
+        data3.revenue += book_price * data3.units_sold;
+        cout << "Accumulated units sold: " << data3.units_sold << '\n';
+        cout << "Accumulated revenue: " << data3.revenue << '\n';
+    }
+    cout << "\n-----------------------------------\nChapter 1 - Exerice 23\n----------------------------------------\n";
+    Sales_item current_data, data4;
+    data4.bookNo = "";
+    int counter = 1;
+    while(current_data.bookNo != "-1")
+    {
+        cout << "Enter book isbn or -1 to quit: ";
+        cin >> current_data.bookNo;
+        if (current_data.bookNo != data4.bookNo)
+        {
+            if (data4.bookNo != "") cout << "Book " << data4.bookNo << " has occured " << counter << " times.\n";
+            data4.bookNo = current_data.bookNo;
+            counter = 1;
+            cout << "Book " << data4.bookNo << " has occured " << counter << " times.\n";
+            continue;
+        }
+        cout << "Book " << current_data.bookNo << " has occured " << ++counter << " times.\n";
+    }
+    cout << "\n-----------------------------------\nChapter 1 - Exerice 24\n----------------------------------------\n";
+    cout << "ISBN Input: a a a a, b b b b, c c c c, d d d d, e e e e, -1\n"
+    "a: a occurs 1 times\ta occurs 2 times\ta occurs 2 times\ta occurs 4 times\n"
+    "b: a occurs 4 times\tb occurs 1 times\tb occurs 2 times\tb occurs 3 times\tb occurs 4 times\n"
+    "c: b occurs 4 times\tc occurs 1 times\tc occurs 2 times\tc occurs 3 times\tc occurs 4 times\n"
+    "d: c occurs 4 times\td occurs 1 times\td occurs 2 times\td occurs 3 times\td occurs 4 times\n"
+    "e: d occurs 4 times\te occurs 1 times\te occurs 2 times\te occurs 3 times\te occurs 4 times\n";
+    cout << "\n-----------------------------------\nChapter 1 - Exerice 25\n----------------------------------------\n";
+    Sales_item total;
+    cout << "Enter book number or -1 to quit: ";
+    cin >> total.bookNo;
+    if (total.bookNo == "-1") return;
+
+    cout << "Enter units sold or -1 to quit: ";
+    cin >> total.units_sold;
+    if (total.units_sold == -1) return;
+
+    cout << "Enter revenue or -1 to quit: ";
+    cin >> total.revenue;
+    if (total.revenue == -1) return;
+
+    Sales_item transaction;
+    while (true)
+    {
+        cout << "Enter book number or -1 to quit: ";
+        cin >> transaction.bookNo;
+        if (transaction.bookNo == "-1") return;
+
+        cout << "Enter units sold or -1 to quit: ";
+        cin >> transaction.units_sold;
+        if (transaction.units_sold == -1) return;
+
+        cout << "Enter revenue or -1 to quit: ";
+        cin >> transaction.revenue;
+        if (transaction.revenue == -1) return;
+    
+        if (transaction.bookNo == total.bookNo)
+        {
+            total.units_sold += transaction.units_sold;
+            total.revenue += transaction.revenue;
+        }
+        else
+        {
+            cout << "Book ISBN: " << total.bookNo << "\tTotal units sold: " << total.units_sold << "\tTotal revenue: " << total.revenue << '\n';
+            total.bookNo = transaction.bookNo;
+            total.units_sold = transaction.units_sold;
+            total.revenue = transaction.revenue;
+        }
+    }
 }
