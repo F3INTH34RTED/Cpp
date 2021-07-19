@@ -54,6 +54,7 @@ void Exercise38();
 void Exercise39();
 void Exercise40();
 void Exercise41();
+void Exercise42();
 
 int main()
 {
@@ -97,7 +98,8 @@ int main()
     // Exercise38();
     // Exercise39();
     // Exercise40();
-    Exercise41();
+    // Exercise41();
+    // Exercise42();
 
     return 0;
 }
@@ -637,7 +639,7 @@ void Exercise41()
     }
 }
 
-// Function to redo exercise 21 and 22 from 01GettingStarted using custom Sales item struct
+// Function to redo exercise 21 and 22 from 01GettingStarted using custom Sales item struct defined in a different header file
 void Exercise42()
 {
     cout << "Chapter 1 - Exerice 21\n----------------------------------------\n";
