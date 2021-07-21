@@ -31,6 +31,10 @@ void Exercise20();
 void Exercise21();
 void Exercise22();
 void Exercise23();
+
+void Program1_BinarySearchUsingIterators();
+
+
 void Exercise24();
 void Exercise25();
 void Exercise26();
@@ -78,7 +82,10 @@ int main()
     // Exercise20();
     // Exercise21();
     // Exercise22();
-    Exercise23();
+    // Exercise23();
+    
+    Program1_BinarySearchUsingIterators();
+    
     // Exercise24();
     // Exercise25();
     // Exercise26();
@@ -416,18 +423,45 @@ void Exercise23()
 {
     vector<int> ivec {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     cout << "Old elements:\n";
-    for(vector<int>::iterator iter = ivec.begin(); iter != ivec.end(); ++iter) cout << *iter << '\n';
+    for(vector<int>::const_iterator iter = ivec.cbegin(); iter != ivec.cend(); ++iter) cout << *iter << '\n';
     
     for(vector<int>::iterator iter = ivec.begin(); iter != ivec.end(); ++iter) *iter *= 2;
     
     cout << "New elements:\n";
-    for(vector<int>::iterator iter = ivec.begin(); iter != ivec.end(); ++iter) cout << *iter << '\n';
+    for(vector<int>::const_iterator iter = ivec.cbegin(); iter != ivec.cend(); ++iter) cout << *iter << '\n';
 }
 
-//
+// Function to use binary search using iterators
+void Program1_BinarySearchUsingIterators()
+{
+    vector<int> ivec;
+    for (int i = 0; i < 200; ++i) ivec.push_back(i);
+
+    int numberToSearch;
+    cout << "Enter a number to search between 0 to 200: ";
+    cin >> numberToSearch;
+
+    // binary search
+    vector<int>::const_iterator start = ivec.cbegin(), end = ivec.cend();
+    vector<int>::const_iterator mid = start + (end - start)/2; // mid point of the vector
+    bool numberFound = false;
+    while (mid != end)
+    {
+        if (*mid == numberToSearch)
+        {
+            numberFound = true;
+            break;
+        }
+        numberToSearch < *mid ? end = mid : start = mid + 1;
+        mid = start + (end - start)/2;
+    }
+    numberFound ? cout << numberToSearch << " found at index " << numberToSearch << '\n' : cout << "Could not find the number.\n";
+}
+
+// Function to rewrite exercise 16, 17, 18, 19, and 20 using iterators
 void Exercise24()
 {
-
+    
 }
 
 //
