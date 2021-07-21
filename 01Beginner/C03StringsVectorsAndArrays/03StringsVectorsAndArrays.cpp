@@ -184,7 +184,7 @@ void Exercise05()
 
     word = "";
     cout << "The words in the sentence are:\n";
-    for (int i = 0; i < sentence.size(); ++i)
+    for (vector<string>::size_type i = 0; i < sentence.size(); ++i)
     {
         if (sentence[i] == ' ')
         {
@@ -365,7 +365,7 @@ void Exercise20()
     for (int num : numbers) cout << counter++ << ". " << num << '\n';
 
     cout << "Sum of adjacent elements:\n";
-    for (int i = 0; i < numbers.size() - 1; ++i)
+    for (vector<int>::size_type i = 0; i < numbers.size() - 1; ++i)
         cout << numbers[i] << " + " << numbers[i + 1] << " = " << numbers[i] + numbers[i + 1] << '\n';
     
     cout << "Sum of first and last, second and second last and so on:\n";
@@ -461,7 +461,7 @@ void Program1_BinarySearchUsingIterators()
 // Function to rewrite exercise 16, 17, 18, 19, and 20 using iterators
 void Exercise24()
 {
-    
+
 }
 
 //
