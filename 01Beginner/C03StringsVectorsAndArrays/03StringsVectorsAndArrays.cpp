@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cstring>
 #include <vector>
 
 using std::cout;
@@ -7,6 +8,8 @@ using std::cin;
 using std::string;
 using std::vector;
 using std::getline;
+using std::strcpy;
+using std::strcat;
 
 void Exercise01();
 void Exercise02();
@@ -84,7 +87,7 @@ int main()
     // Exercise22();
     // Exercise23();
     
-    Program1_BinarySearchUsingIterators();
+    // Program1_BinarySearchUsingIterators();
     
     // Exercise24();
     // Exercise25();
@@ -107,7 +110,7 @@ int main()
     // Exercise42();
     // Exercise43();
     // Exercise44();
-    // Exercise45();
+    Exercise45();
     
     return 0;
 }
@@ -218,7 +221,7 @@ void Exercise08()
 {
     string str = "hello to cpp";
     string strToManipulate = str;
-    int i = 0;
+    size_t i = 0;
     while (i < strToManipulate.size())
     {
         strToManipulate[i] = 'X';
@@ -329,7 +332,7 @@ void Exercise17()
     while ((cin >> word) && (word != "-1")) words.push_back(word);
     for (string &element : words)
         for (char &character : element) character = toupper(character);
-    for (int i = 0; i < words.size(); ++i)
+    for (size_t i = 0; i < words.size(); ++i)
         (i + 1) % 8 == 0 ? cout << words[i] << '\n' : cout << words[i] << ' '; 
     // (i + 1) because when i = 0 then 0 % 8 = 0 and hence, it will go onto the new line after printing
     // the first word. But there must be 8 words per line and hence, we start the modulus operator from
@@ -369,7 +372,7 @@ void Exercise20()
         cout << numbers[i] << " + " << numbers[i + 1] << " = " << numbers[i] + numbers[i + 1] << '\n';
     
     cout << "Sum of first and last, second and second last and so on:\n";
-    for (int i = 0; i < (numbers.size() + 1) / 2; ++i)
+    for (size_t i = 0; i < (numbers.size() + 1) / 2; ++i)
         cout << numbers[i] << " + " << numbers[numbers.size() - i - 1] << " = " << numbers[i] + numbers[numbers.size() - i - 1] << '\n';
 }
 
@@ -461,132 +464,403 @@ void Program1_BinarySearchUsingIterators()
 // Function to rewrite exercise 16, 17, 18, 19, and 20 using iterators
 void Exercise24()
 {
+    cout << "Exercise 16:\n";
+    vector<int> v1, v2(10), v3(10, 42), v4{10}, v5{10, 42};
+    vector<string> v6{10}, v7{10, "hi"};
+    cout << "Vector 1\n";
+    for (vector<int>::const_iterator iter = v1.cbegin(); iter != v1.cend(); ++iter) cout << *iter << '\n';
+    cout << "Vector 2\n";
+    for (vector<int>::const_iterator iter = v2.cbegin(); iter != v2.cend(); ++iter) cout << *iter << '\n';
+    cout << "Vector 3\n";
+    for (vector<int>::const_iterator iter = v3.cbegin(); iter != v3.cend(); ++iter) cout << *iter << '\n';
+    cout << "Vector 4\n";
+    for (vector<int>::const_iterator iter = v4.cbegin(); iter != v4.cend(); ++iter) cout << *iter << '\n';
+    cout << "Vector 5\n";
+    for (vector<int>::const_iterator iter = v5.cbegin(); iter != v5.cend(); ++iter) cout << *iter << '\n';
+    cout << "Vector 6\n";
+    for (vector<string>::const_iterator iter = v6.cbegin(); iter != v6.cend(); ++iter) iter->empty() ? cout << "Empty element!\n" : cout << *iter << '\n';
+    cout << "Vector 7\n";
+    for (vector<string>::const_iterator iter = v7.cbegin(); iter != v7.cend(); ++iter) cout << *iter << '\n';
+    
+    cout << "\n\nExercise 17:\n";
+    string word;
+    vector<string> words;
+    cout << "Enter words or -1 to quit:\n";
+    while ((cin >> word) && (word != "-1")) words.push_back(word);
+    for (vector<string>::iterator element = words.begin(); element != words.end(); ++ element)
+        for (char &character : *element) character = toupper(character);
+    for (size_t i = 0; i < words.size(); ++i)
+        (i + 1) % 8 == 0 ? cout << words[i] << '\n' : cout << words[i] << ' ';
+    
+    cout << "\n\nExercise 18:\n";
+    Exercise18();
+    
+    cout << "\n\nExercise 19:\n";
+    Exercise19();
+    
+    cout << "\n\nExercise 20:\n";
+    int number;
+    vector<int> numbers;
+    cout << "Enter numbers or enter -1 to exit:\n";
+    while ((cin >> number) && (number != -1)) numbers.push_back(number);
 
+    int counter = 1;
+    cout << "Print elements:\n";
+    for (vector<int>::const_iterator iter = numbers.cbegin(); iter != numbers.cend(); ++iter) cout << counter++ << ". " << *iter << '\n';
+
+    cout << "Sum of adjacent elements:\n";
+    for (vector<int>::const_iterator iter = numbers.cbegin(); iter != numbers.cend(); ++iter)
+        cout << *iter << " + " << *(iter + 1) << " = " << *iter + *(iter + 1) << '\n';
+    
+    cout << "Sum of first and last, second and second last and so on:\n";
+    vector<int>::const_iterator mid = numbers.cbegin() + (numbers.cend() - numbers.cbegin() + 1) / 2;
+    for (vector<int>::const_iterator iter = numbers.cbegin(); iter != mid; ++iter)
+        cout << *iter << " + " << *(numbers.cend() - (iter - numbers.cbegin()) - 1) << " = " << *iter + *(numbers.cend() - (iter - numbers.cbegin()) - 1) << '\n';
 }
 
-//
+// Function to rewrite the grade clustering program from 3.3.3
 void Exercise25()
 {
-
+    vector<int> gradesCluster(11);
+    int grades;
+    cout << "Enter grades or -1 to quit: ";
+    while ((cin >> grades) && grades != -1) ++gradesCluster[grades / 10];
+    cout << '\n';
+    for (vector<int>::const_iterator iter = gradesCluster.cbegin(); iter != gradesCluster.cend(); ++iter) cout << *iter << '\t';
+    cout << '\n';
 }
 
-//
+// Function to discuss the reason for start + (end - start) / 2 instead of (start + end) / 2 in program 1
 void Exercise26()
 {
+    cout << "When mid = start + (end - beg) / 2\n\n";
+    cout << "Let array be {1, 2, 3, 4, 5} and element to search for be 1\n"
+    "Start index = 0 and end index = 4 - Odd number of elements in total\n"
+    "Mid point = 0 + (4-0/2) = 2 and search < mid\n"
+    "Start index = 0 and end index = 2 - Odd number of elements in total\n"
+    "Mid point = 0 + (2-0/2) = 1 and search < mid\n"
+    "Start index = 0 and end index = 1 - Even number of elements in total\n"
+    "Mid point = 0 + (1-0/2) = 0 and search = mid\n\n\n";
 
+    cout << "Let array be {1, 2, 3, 4} and element to search for be 4\n"
+    "Start index = 0 and end index = 3 - Even number of elements in total\n"
+    "Mid point = 0 + (3-0/2) = 1 and search > mid\n"
+    "Start index = 2 and end index = 3 - Even number of elements in total\n"
+    "Mid point = 2 + (3-2/2) = 2 and search < mid\n"
+    "Start index = 3 and end index = 3 - Odd number of elements in total\n"
+    "Mid point = 3 + (3-3/2) = 3 and search = mid\n\n\n";
+
+    cout << "When mid = (end - beg) / 2\n\n";
+    cout << "Let array be {1, 2, 3, 4, 5} and element to search for be 1\n"
+    "Start index = 0 and end index = 4 - Odd number of elements in total\n"
+    "Mid point = 4-0/2 = 2 and search < mid\n"
+    "Start index = 0 and end index = 2 - Odd number of elements in total\n"
+    "Mid point = 2-0/2 = 1 and search < mid\n"
+    "Start index = 0 and end index = 1 - Even number of elements in total\n"
+    "Mid point = 1-0/2 = 0 and search = mid\n\n\n";
+
+    cout << "Let array be {1, 2, 3, 4} and element to search for be 4\n"
+    "Start index = 0 and end index = 3 - Even number of elements in total\n"
+    "Mid point = 3-0/2 = 1 and search > mid\n"
+    "Start index = 2 and end index = 3 - Odd number of elements in total\n"
+    "Mid point = 3-2/2 = 0 and search < mid\n"
+    "Start index = 1 and end index = 3 - Even number of elements in total\n"
+    "Mid point = 3-1/2 = 1 and search > mid\n"
+    "Start index = 2 and end index = 3 - Odd number of elements in total\n"
+    "Mid point = 3-2/2 = 0 and search > mid\n";
+    
+    cout << "Logic Error: Leads to an infinite loop\n\n\n";
 }
 
-//
+// Function to discuss what definitions are illegal.
 void Exercise27()
 {
-
+    cout << 
+    "(a) is illegal because buf_size is not constant\n"
+    "(b) is legal because there is an integer literal\n"
+    "(c) is legal\n"
+    "(d) is illegal because in a string there is an extra null terminator character and hence \"fundamental\" actually has 12 character in total.\n";
 }
 
-//
+// Function to predict the values in the following array
 void Exercise28()
 {
-
+    cout <<
+    "sa[10] has 10 elements with no value and default initialized to empty string.\n"
+    "ia[10] has 10 elements all default initialized  to 0.\n"
+    "sa2[10] is the same as sa[10].\n"
+    "ia2[10] has 10 elements with some garbage value.\n";
 }
 
-//
+// Function to list drawbacks of an array over vector
 void Exercise29()
 {
-
+    cout << 
+    "- The size of the array is fixed and must be known when defined.\n"
+    "- Character array needs to leave space for null character at the end.\n"
+    "- Arrays can not be copied or assigned as a whole.\n"
+    "- Array can not be constructed with the same values like the constructor of vector when defined.\n"
+    "- The size of array must be calculated when using (sometimes cannot be calculated at all) instead of calling a size() method.\n"
+    "- Arrays are not dynamic and cannot expand once defined whereas a vector can grow or shrink in size.\n";
 }
 
-//
+// Function to identify the indexing errors
 void Exercise30()
 {
-
+    cout << "constexpr size_t array_size = 10;\n";
+    cout << "int ia[array_size];\n";
+    cout << "for(size_t ix = 1; ix <= array_size; ++ix) ia[ix] = ix;\n";
+    cout << "When ix = array_size then ++ix will try to access out of bounds memory\n";
 }
 
-//
+// Function to declare an integer of size 10 and assign values as its position in the array
 void Exercise31()
 {
-
+    int x[10];
+    for (size_t i = 0; i < 10; ++i) x[i] = i;
+    for (size_t i = 0; i < 10; ++i) cout << x[i];
 }
 
-//
+// Rewriting exercise 31 using vectors
 void Exercise32()
 {
-
+    vector<int> x(10);
+    for (int i = 0; i < 10; ++i) x[i] = i;
 }
 
-//
+// Function to discuss the consequences if the scores array was not initialized
 void Exercise33()
 {
-
+    cout << "If the scores array was not initialized then ++scores[grade/10] would increment some garbage value\n";
 }
 
-//
+// Function to discuss the output of the code and whether the pointers p1 and p2 make this code legal
 void Exercise34()
 {
-
+    cout << "int a[5] = {0, 1, 2, 3, 4};\n";
+    cout << "int *p1 = a, *p2 = a;\n";
+    cout << "cout << *p1 << '\\n';\n";
+    cout << "cout << *p2 << '\\n';\n";
+    cout << "p1 += p2 - p1;\n";
+    cout << "cout << *p1 << '\\n';\n";
+    cout << "cout << *p2 << '\\n';\n";
+    cout << "The following code assigns the pointers p1 and p2 to the first element and then p1 += p2 - p1 will not change as the arithmetic nullifies everything\n";
 }
 
-//
+// Function to set the elements of an array to 0.
 void Exercise35()
 {
-
+    int a[5] = {0, 1, 2, 3, 4};
+    int *p = a;
+    for (int i = 0; i < 5; ++i) cout << a[i] << '\n';
+    for (int i = 0; i < 5; ++i) *(p + i) = 0;
+    for (int i = 0; i < 5; ++i) cout << a[i] << '\n';
 }
 
-//
+// 
 void Exercise36()
 {
+    int a[5] = {0, 1, 2, 3, 4}, b[5] = {0, 1, 2, 3, 4}, c[5] = {5, 4, 3, 2, 1};
+    
+    cout << "a = ";
+    for (int i = 0; i < 5; ++i) cout << a[i] << '\t';
+    cout << '\n';
+    
+    cout << "b = ";
+    for (int i = 0; i < 5; ++i) cout << b[i] << '\t';
+    cout << '\n';
+    
+    cout << "c = ";
+    for (int i = 0; i < 5; ++i) cout << c[i] << '\t';
+    cout << '\n';
+    
+    bool arrayEqual = true;
+    for (int i = 0; i < 5; ++i)
+    {
+        if (a[i] != b[i])
+        {
+            arrayEqual = false;
+            break;
+        }
+    }
+    arrayEqual ? cout << "Array a and Array b are equal\n" : cout << "Array a and array b are not equal\n";
 
+    arrayEqual = true;
+    for (int i = 0; i < 5; ++i)
+    {
+        if (a[i] != c[i])
+        {
+            arrayEqual = false;
+            break;
+        }
+    }
+    arrayEqual ? cout << "Array a and Array c are equal\n" : cout << "Array a and array c are not equal\n";
+
+    vector<int> d(5,4), e(5,4), f(5,6);
+    
+    cout << "Array d = ";
+    for (int x : d) cout << x << '\t';
+    cout << '\n';
+    
+    cout << "Array e = ";
+    for (int x : e) cout << x << '\t';
+    cout << '\n';
+    
+    cout << "Array f = ";
+    for (int x : f) cout << x << '\t';
+    cout << '\n';
+    
+    d == e ? cout << "Array d and Array e are equal\n" : cout << "Array d and array e are not equal\n";
+    d == f ? cout << "Array d and Array f are equal\n" : cout << "Array d and array f are not equal\n";
 }
 
-//
+// Function to predict the outcome of the following program
 void Exercise37()
 {
-
+    cout << "const char ca[] = {'h','e','l','l','o'};\n";
+    cout << "const char *cp = ca;\n";
+    cout << "while (*cp) {\n";
+    cout << "\tcout << *cp << endl;\n";
+    cout << "\t++cp;\n}\n";
+    cout << "This program will print all the characters. However since the while loop will execute until *cp = 0 which means that *cp need to be equal to a character whose integer corresponds"
+    "to the value 0.\n";
+    cout << "Therefore, there will be more gibbersih characters after hello\n";
+    const char ca[] = {'h','e','l','l','o'}, *cp = ca;
+    while (*cp)
+    {
+        cout << *cp;
+        ++cp;
+    }
 }
 
-//
+// Function to discuss why adding two pointers would be meaningless
 void Exercise38()
 {
-
+    cout << "Adding two pointers to an array would be meaningless because both those pointers would point to the first index whose value is 0, and 0. Therefore upon adding two pointer will still yield"
+    " the first index\n";
 }
 
-//
+// Funtion to compare two strings and c-style character strings
 void Exercise39()
 {
+    string str1("hello"), str2("hello"), str3("cpp");
+    str1 == str2 ? cout << "String 1 and 2 are equal\n" : cout << "String 1 and 2 are not equal\n";
+    str1 == str3 ? cout << "String 1 and 3 are equal\n" : cout << "String 1 and 3 are not equal\n";
+    
+    char c1[6] = {'h','e','l','l','o','\0'}, c2[6] = {'h','e','l','l','o','\0'}, c3[4] = {'c','p','p','\0'};
+    bool arrayEqual = true;
+    if (sizeof(c1) == sizeof(c2))
+    {
+        for (size_t i = 0; i < sizeof(c1); ++i)
+        {
+            if(c1[i] != c2[i])
+            {
+                arrayEqual = false;
+                break;
+            }
+        }
+    }
+    else arrayEqual = false;
+    arrayEqual ? cout << "c1 and c2 are equal\n" : cout << "c1 and c2 are not equal\n";
 
+    arrayEqual = true;
+    if (sizeof(c1) == sizeof(c3))
+    {
+        for (size_t i = 0; i < sizeof(c1); ++i)
+        {
+            if(c1[i] != c2[i])
+            {
+                arrayEqual = false;
+                break;
+            }
+        }
+    }
+    else arrayEqual = false;
+    arrayEqual ? cout << "c1 and c3 are equal\n" : cout << "c1 and c3 are not equal\n";
 }
 
-//
+// Function to declare 2 char arrays using string literals and then defining a third character array to hold the concat of 2 arrays using strcat and strcpy to copy the two arrays
 void Exercise40()
 {
-
+    const char c1[] = "hello", c2[] = "cpp";
+    char c3[sizeof(c1) + sizeof(c2)];
+    strcpy(c3, c1);
+    strcat(c3, c2);
+    for (char c : c1) cout << c << '\t';
+    cout << '\n';
+    for (char c : c2) cout << c << '\t';
+    cout << '\n';
+    for (char c : c3) cout << c << '\t';
+    cout << '\n';
 }
 
-//
+// Function to initialize a vector using an integer array
 void Exercise41()
 {
-
+    int ia[5] = {1, 2, 3, 4, 5};
+    vector<int> iv(std::begin(ia), std::end(ia));
+    for (const int i : iv) cout << i << '\t';
+    cout << '\n';
 }
 
-//
+// Function to copy a vector of int to an array of int
 void Exercise42()
 {
-
+    vector<int> iv(3,4);
+    int ia[3];
+    for (int i = 0; i < 3; ++i) ia[i] = iv[i];
+    for (int i : ia) cout << i << '\t';
+    cout << '\n';
 }
 
-//
+// Function to print elements of ia in 3 different ways
 void Exercise43()
 {
+    int ia[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    
+    for (int i : ia) cout << i << '\t';
+    cout << '\n';
 
+    for (int *i = std::begin(ia); i != std::end(ia); ++i) cout << *i << '\t';
+    cout << '\n';
+
+    for (size_t i = 0; i < sizeof(ia)/sizeof(int); ++i) cout << ia[i] << '\t';
+    cout << '\n';
 }
 
-//
+// Code to rewrite exercise 41 and 42 using type aliases
 void Exercise44()
 {
+    // Exercise 41
+    using integer_array_size5 = int[5];
+    integer_array_size5 ia = {1, 2, 3, 4, 5};
+    vector<int> iv(std::begin(ia), std::end(ia));
+    for (const int i : iv) cout << i << '\t';
+    cout << '\n';
 
+    // Exercise 42
+    typedef int integer_array_size3[3];
+    vector<int> iv2(3,4);
+    integer_array_size3 ia2;
+    for (int i = 0; i < 3; ++i) ia2[i] = iv2[i];
+    for (int i : ia2) cout << i << '\t';
+    cout << '\n';
 }
 
-//
+// Code to rewrite exercise 41 and 42 using auto
 void Exercise45()
 {
+    // Exercise 41
+    int ia[5] = {1, 2, 3, 4, 5};
+    vector<int> iv(std::begin(ia), std::end(ia));
+    for (auto i : iv) cout << i << '\t';
+    cout << '\n';
 
+    // Exercise 42
+    vector<int> iv2(3,4);
+    int ia2[3];
+    for (auto i = 0; i < 3; ++i) ia2[i] = iv2[i];
+    for (auto i : ia2) cout << i << '\t';
+    cout << '\n';
 }
 
