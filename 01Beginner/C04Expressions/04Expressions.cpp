@@ -1,11 +1,16 @@
 #include <iostream>
+#include <vector>
 
 using std::cout;
 using std::cin;
+using std::vector;
 
 void Dummy()
 {
-
+    vector<int> ivec = {1, 2, 3, 4, 5};
+    vector<int>::const_iterator iter = ivec.cbegin();
+    while (iter != ivec.cend())
+        cout << *(++iter) << '\n';
 }
 
 void Exercise01();
@@ -194,40 +199,62 @@ void Exercise12()
     "Basically, this condition checks that the value of 'i' should not match the value returned from j < k\n";
 }
 
-//
+// Function to display the values of 'd' and 'i'
 void Exercise13()
 {
-
+    int i; double d;
+    d = i = 3.5; // d = 3, i = 3
+    cout << d << '\t' << i << '\n';
 }
 
-//
+// Function to explain the if-conditions
 void Exercise14()
 {
-
+    cout << "(a) This condition will assign the literal value of 42 to the value of 'i' which is an error.\n";
+    cout << "(b) This condition will assign the value of 'i' to 42 and since, any non-zero value is true. This condition will be true.\n";
 }
 
-//
+// Function to discuss why the following assignment is illegal
 void Exercise15()
 {
-
+    cout << "This assignment is illegal because a pointer and a primitive datatype such as int, or double cannot assign to the same rvalue.\n";
+    double dval; int ival, *pi;
+    dval = ival = 0;
+    pi = 0; // or pi = nullptr;
 }
 
-//
+// Function to discuss the misconceptions in the following statements and a better way to write it.
 void Exercise16()
 {
-
+    cout << "(a) The assignment operator has lower precedence than relational operators and hence the programmer might expect that first ";
+    cout << "p = getPtr() is evaluated and then the result of it is compared using the relational operator which is incorrect. The better way ";
+    cout << "to write would be `if((p = getPtr()) != 0)";
+    cout << "\n\n(b)The programmer might expect that the condition is comparing the value of `i` to 1024. Instead, it is first assigning the value ";
+    cout << "of `i` to 1024 and then checking whether `i` is true or false. Since, `i` is 1024 it will return true. The better way to write this ";
+    cout << "would be `if (i == 1024)` if the value needs to be compared or `if ((i=1024))` if `i` needs to be evaluated first.\n";
 }
 
-//
+// Function to explain the prefix and postfix increments
 void Exercise17()
 {
-
+    cout << "The prefix increment `++i` will return the incremented value. So, if `i` was 1 then it will return 2.\n";
+    cout << "The postfix increment `i++` will return the same value and then increment it. So, if `i` was 1 then it will return 1 and then on the next ";
+    cout << "statement the value of `i` will change to 2.\n";
 }
 
-//
+// Function to explain the potential result of the following while loop
 void Exercise18()
 {
+    cout << "vector<int> ivec = {1, 2, 3, 4, 5};\n"
+            "vector<int>::const_iterator iter = ivec.cbegin();\n"
+            "while (iter != ivec.cend())\n"
+                "\tcout << *(++iter) << '\\n';\n";
 
+    cout << "vector<int> ivec = {1, 2, 3, 4, 5};\n"
+            "auto pbeg = v.begin();\n"
+            "while (pbeg != v.end() && *beg >= 0) cout << *(++pbeg) << endl;\n\n";
+    cout << "The following while loop will start printing from the second element and go upto the element after the last element.\n";
+    cout << "Hence, it might print a garbage value.\n";
 }
 
 //
