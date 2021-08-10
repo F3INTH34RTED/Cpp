@@ -72,26 +72,6 @@ int main()
     // Exercise23();
     // Exercise24();
     // Exercise25();
-    // Exercise26();
-    // Exercise27();
-    // Exercise28();
-    // Exercise29();
-    // Exercise30();
-    // Exercise31();
-    // Exercise32();
-    // Exercise33();
-    // Exercise34();
-    // Exercise35();
-    // Exercise36();
-    // Exercise37();
-    // Exercise38();
-    // Exercise39();
-    // Exercise40();
-    // Exercise41();
-    // Exercise42();
-    // Exercise43();
-    // Exercise44();
-    // Exercise45();
 
     return 0;
 }
