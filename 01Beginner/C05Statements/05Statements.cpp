@@ -3,9 +3,9 @@
 #include <vector>
 #include <stdexcept>
 
-using std::cerr;
 using std::cin;
 using std::cout;
+using std::cerr;
 using std::noskipws; // dont skip ws(whitespaces)
 using std::runtime_error;
 using std::string;
