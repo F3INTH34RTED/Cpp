@@ -1,10 +1,17 @@
 #include <iostream>
 #include <string>
+#include <initializer_list>
+#include <vector>
+#include <assert.h>
 #include "06Functions.h"
+
+//#define NDEBUG // NDEBUG = No Debugging
 
 using std::cin;
 using std::cout;
+using std::initializer_list;
 using std::string;
+using std::vector;
 
 // Exercise01 - Exercise05 declarations are in 06Functions.h
 void Exercise06();
@@ -28,13 +35,13 @@ void Exercise23();
 void Exercise24();
 void Exercise25();
 void Exercise26();
-void Exercise27();
+void Exercise27(initializer_list<int> num_list);
 void Exercise28();
 void Exercise29();
-void Exercise30();
+bool Exercise30(const string &str1, const string &str2);
 void Exercise31();
-void Exercise32();
-void Exercise33();
+int &Exercise32GetArrayIndex(int *arry, int index);
+void Exercise33PrintVector(vector<int>::const_iterator beg, vector<int>::const_iterator end);
 void Exercise34();
 void Exercise35();
 void Exercise36();
@@ -48,7 +55,7 @@ void Exercise43();
 void Exercise44();
 void Exercise45();
 void Exercise46();
-void Exercise47();
+void Exercise47(vector<int>::const_iterator beg, vector<int>::const_iterator end);
 void Exercise48();
 void Exercise49();
 void Exercise50();
@@ -61,8 +68,8 @@ void Exercise56();
 
 void Dummy()
 {
-    int a = 5, b = 4;
-    cout << Exercise21(a, &b) << '\n';
+    vector<int> ivec = {2,4,6,8,10,12,14,16,18,20};
+    Exercise47(ivec.cbegin(), ivec.cend());
 }
 
 int main()
@@ -187,7 +194,8 @@ void Exercise02()
 int Exercise03Factorial(int x)
 {
     int fact = 1;
-    while (x > 1) fact *= x--;
+    while (x > 1)
+        fact *= x--;
     return fact;
 }
 
@@ -334,8 +342,9 @@ void Exercise17(string &s)
     }
     isCapital ? cout << s << ": has a capital letter at index " << count << '\n' : cout << s << ": does not have a capital letter\n";
     if (isCapital)
-        for (char &x : s) x = tolower(x);
-    
+        for (char &x : s)
+            x = tolower(x);
+
     /*
     Although they can have the same type, but I personally would prefer:
     void DetectCapitalLetter(const string &s); as this does not have any limitation as can pass literal string arguments
@@ -375,21 +384,21 @@ void Exercise20()
 }
 
 // Function to return the larger value
-int Exercise21(const int a, const int const *b)
-{    
+int Exercise21(const int a, const int *const b)
+{
     return a >= *b ? a : *b;
     // const int *b should be used to avoid changing the value of 'b'
     // int const *b should be used to avoid changing the value to which 'b' points
     // therefore, const inst const *b should be the type of pointer
 }
 
-//
+// Function to swap 2 ints
 void Exercise22()
 {
     // Refer to exercise 3 and 4
 }
 
-//
+// Function to print the values of int and integer array
 void Exercise23()
 {
     // To print `i`
@@ -397,178 +406,408 @@ void Exercise23()
     // Function call: print(i);
 
     // To print `int j = {0,1};`
-    // void print(int *beg, const int const *end)
+    // void print(int *const beg, const int *const end)
     // {
     //      while (beg != end) cout << *beg++ << '\n';
     // }
     // Function call: print(beg(j), end(j));
 }
 
-//
+// Function to explain the behavior of the given function
 void Exercise24()
 {
+    /*
+    void print(const int ia[10])
+    {
+        for (size_t i = 0; i != 10; ++i) cout << ia[i] << endl;
+    }
+    */
+
     // The problem is that we cannot pass an array by value, and when we pass an array to a function, we are actually passing a pointer to the
     // array's first element. In this question, const int ia[10] is actually same as const int*, and the size of the array is irrelevant.
     // we can pass const int ia[3] or const int ia[255], there are no differences. If we want to pass an array which size is ten, we should use reference
     // like that: void print10(const int (&ia)[10]) { /*...*/ }
 }
 
-//
+// Function to discuss how to write a main function that takes 2 arguments, concatenates the supplied arguments, and prints the argument.
 void Exercise25()
 {
+    // On command line: path\filename.exe give arguments here
+    // On powershell:   cd path (press enter)
+    //                  ./filename give arguments here
+
+    /*int main(int argc, char *argv[])
+    {
+        string str;
+        for (int i = 1; i != argc; ++i)
+            str += "argv[" + std::to_string(i) + "]: " + string(argv[i]) + "\n";
+        cout << str << std::endl;
+    }
+    */
 }
 
-//
+// Function to discuss the expected output from Exercise25
 void Exercise26()
 {
+    /*
+    Expected output:
+    argv[1]: give
+    argv[2]: arguments
+    argv[3]: here
+    */
 }
 
-//
-void Exercise27()
+// Function to produce the sum from the initializer list
+void Exercise27(initializer_list<int> num_list)
 {
+    // Call: Exercise27({1,2,3,4,5,6,7,8,9,10,11});
+    int sum = 0;
+    for (const int& num : num_list) sum += num;
+    cout << "The sum is: " << sum << '\n';
 }
 
-//
+// Function to discuss the type of variable `elem`
 void Exercise28()
 {
+    /*
+    void error_msg(ErrCode e, initializer_list<string> il)
+    {
+        cout << e.msg() << ": ";
+        for (const auto &elem : il) cout << elem << " ";
+        cout << endl;
+    }
+    */
+    // The type of auto is const string &elem
 }
 
-//
+// Function to discuss whether loop control variable would be used as a ref
 void Exercise29()
 {
+    // Yes, if the datatype is not a primitive datatype such as int, float, double, char etc. Otherwise if it is an object of type
+    // string or user defined type then I would use references.
 }
 
-//
-void Exercise30()
+// Function to discuss compiler errors on failure of bool return of every path flow
+bool Exercise30(const string &str1, const string &str2)
 {
+    // if (str1.size() == str2.size()) return str1 == str2;
+    // string::size_type size = str1.size() < str2.size() ? str1.size() : str2.size();
+    // for(string::size_type i = 0; i < size; ++i)
+    // {
+    //     if(str1[i] != str2[i]) return; -> return statement with no value, in function returning 'bool'
+    // }
+
+    if (str1.size() == str2.size()) return str1 == str2;
+    string::size_type size = str1.size() < str2.size() ? str1.size() : str2.size();
+    for(string::size_type i = 0; i < size; ++i)
+    {
+        if(str1[i] != str2[i]) return false;
+    }
+    return true;
 }
 
-//
+// Function to discuss when it's valid to return a reference to a constant?
 void Exercise31()
 {
+    // When there is a pre-existing object then it is valid to return a reference to a const.
 }
 
-//
-void Exercise32()
+// Function to discuss the output and legality of the function
+int &Exercise32GetArrayIndex(int *arry, int index)
 {
+    return arry[index];
+    /*
+    Testing:
+        int ia[10];
+        for (int i = 0; i < 10; ++i) Exercise32GetArrayIndex(ia, i) = i;
+        for (int i = 0; i < 10; ++i) cout << ia[i] << '\n';
+    */
 }
 
-//
-void Exercise33()
+// Function to print the contents of a vector
+void Exercise33PrintVector(vector<int>::const_iterator beg, vector<int>::const_iterator end)
 {
+    if (beg != end)
+    {
+        cout << *beg << '\n';
+        Exercise33PrintVector(++beg, end);
+    }
 }
 
-//
+// Function to discuss the difference between `if(val > 1) and if(val != 0)` in the factorial(int val) funciton
 void Exercise34()
 {
+    /*
+    int factorial(int val)
+    {
+        if (val != 0) return factorial(val - 1) * val;
+        return 1;
+    }
+    int factorial(int val)
+    {
+        if (val > 1) return factorial(val - 1) * val;
+        return 1;
+    }
+    Case 1: Analyzing 5! when `if(val != 0)`
+        val = 5: fact (4) * 5; (1 * 1 * 2 * 3 * 4 * 5 = 120)
+        val = 4: fact (3) * 4; (1 * 1 * 2 * 3 * 4 = 24)
+        val = 3: fact (2) * 3; (1 * 1 * 2 * 3 = 6)
+        val = 2: fact (1) * 2; (1 * 1 * 2 = 2)
+        val = 1: fact (0) * 1; (1 * 1 = 1)
+        val = 0: return 1;
+    Case 2: Analyzing 5! when `if(val > 1)`
+        val = 5: fact (4) * 5; (1 * 2 * 3 * 4 * 5 = 120)
+        val = 4: fact (3) * 4; (1 * 2 * 3 * 4 = 24)
+        val = 3: fact (2) * 3; (1 * 2 * 3 = 6)
+        val = 2: fact (1) * 2; (1 * 2 = 2)
+        val = 1: return 1;
+    Conclusion: There is an extra function call when we use (val != 0)
+    Case 3: If the value is negative, then it will result in an infinite loop.
+    */
 }
 
-//
+// Function to discuss the reasoning behind using fact(val - 1) rather than fact(val--)
 void Exercise35()
 {
+    // It is because the order of operation is undefined in fact(val--);
+    // The function could have executed fact() first and then val-- or vice-vera.
 }
 
-//
+// Function to return a reference to an array of 10 strings
 void Exercise36()
 {
+    // string (&func(string (&arrStr)[10]))[10];
 }
 
-//
+// Function to write 3 additional declarations for the function in the previous exercise.
 void Exercise37()
 {
+    // using ArrT = string[10];
+    // ArrT& func1(ArrT& arr);
+
+    // auto func2(ArrT& arr) -> string(&)[10];
+
+    // string arrS[10];
+    // decltype(arrS)& func3(ArrT& arr);
+
+    // I prefer the second form.
 }
 
-//
+// Function to revise the `arrPtr` function
 void Exercise38()
 {
+    // int odd[] = {1,3,5,7,9}, even[] = {0,2,4,6,8};
+    // decltype(odd)& arrPtr(int i)
+    // {
+    //     return (i % 2) ? odd : even;
+    // }
 }
 
-//
+// Function to explain the effect of the second declaration
 void Exercise39()
 {
+    // (a) Legal, they both have the same return types and repeated declaration without definition.
+    // (b) int get() and double get() is illegal because have 2 different return types but no way of function mapping as none of them have
+    // an argument for the compiler to decide which function to call.
+    // (c) int *reset(int *) and double *reset(double *) is legal because the return type and the parameter types are different.
 }
 
-//
+// Functions to discuss declarations that are in error
 void Exercise40()
 {
+    // (a) int ff(int a, int b = 0, int c = 0) is legal.
+    // (b) char *init(int ht = 24, int wd, char bckgrnd) is illegal because all the following declarations after the default init must also be
+    //     default initialized.
 }
 
-//
+// Function to discuss illegal function calls and legal but contrary to programmer's intent.
 void Exercise41()
 {
+    // (a) is illegal because height has not been default initialized and there were no arguments passed during the function call.
+    // (b) is legal
+    // (c) is legal but might be contrary to the programmer's intent because `14` is for the height and int(`*`) is for the width
 }
 
-//
-void Exercise42()
+// Function to return the word ending with an 's' if the word is plural and without an 's' if the word is singular
+string Exercise42MakePlural(size_t counter, const string &word, const string &ending = "s")
 {
+    return (counter > 1) ? word + ending : word;
 }
 
-//
+// Function to discuss which function definition and declaration would go in a header file.
 void Exercise43()
 {
+    // (a) I would put this in a header file because it is an inline function.
+    // (b) This is neither an inline nor a constexpr function and hence, this will not go in the header file.
 }
 
-//
-void Exercise44()
+// Function to rewrite the isShorter function to inline
+inline bool Exercise44IsShorter(const string &str1, const string &str2)
 {
+    return str1 > str2;
 }
 
-//
+// Function to discuss when a function must be inline.
 void Exercise45()
 {
+    /*
+        Short functions that span upto 5 lines of code are great examples of making a function inline. Moreover, the compiler is optimized in
+        a way to detect short functions automatically and make them inline.
+        Functions between 5-10 lines of code need serious consideration whether they can be inline or not based on the time and space
+        complexity.
+        Functions with 10+ lines of code should not be inline.
+    */
 }
 
-//
+// Function to display isShorter as constexpr
 void Exercise46()
 {
+    // No because string::size() is not a constexpr function and s1.size() == s2.size() is not a constant expression.
 }
 
-//
-void Exercise47()
+// Function to use debugging during recursion execution
+void Exercise47(vector<int>::const_iterator beg, vector<int>::const_iterator end)
 {
+    static int counter = 0;
+    // With debug -> Define `#define NDEBUG` on line 8
+    // Without debug -> Comment or remove `#define NDEBUG` on line 8
+    if (beg != end)
+    {
+        #ifndef NDEBUG
+            cout << counter++ << '\t';
+        #endif
+        cout << *beg << '\n';
+        Exercise47(++beg, end);
+    }
 }
 
-//
+// Function to discuss whether assert(cin) is a good use or not.
 void Exercise48()
 {
+    // No, assert would be meaningless here because any combination of character entered is a string.
 }
 
-//
+// Function to discuss what is a candidate and a viable function.
 void Exercise49()
 {
+    /*
+        A candidate function is a function whose name in the declaration matches with the function caller's name.
+        A viable function is a function whose:
+        - number of arguments in function caller = number of parameters
+        - types of arguments match exactly with the parameter types
+        - types of arguments can be converted to parameter types. 
+    */
 }
 
-//
+// Function to discuss the function calls to which declaration they belong or whether the function call is an error
 void Exercise50()
 {
+    // (a) is ambiguous because there are 2 functions:
+    //      f(int, int) and f(double, double) and therefore, when we call f(2.56, 42) it applies to both the functions because either
+    //      2.56 can be converted to int or 42 can be converted to double and hence, this call is an error as it leads to ambiguity.
+    // (b) is f(int)
+    // (c) is f(int, int)
+    // (d) is f(double, double)
 }
 
-//
+// Function to write all 4 versions of `f` to predict output from Exercise 50
 void Exercise51()
 {
+    /*
+    Functions:
+    - void f() {cout << "f()" << "no parameters" << '\n';}
+    - void f(int x) {cout << "f(int x): " << x << '\n';}
+    - void f(int x, int y) {cout << "f(int x, int y): " << x << y << '\n';}
+    - void f(double x, double y = 3.14) {cout << "f(double x, double y): " << x << y << '\n';}
+    Output:
+    (a) Error - Ambiguity
+    (b) f(int x): 42
+    (c) f(int x, int y): 42, 0
+    (d) f(double x, double y): 2.56, 3.14
+    */
 }
 
-//
+// Ranking the function calls
 void Exercise52()
 {
+    // (a) - Rank 3 (Match through promotion)
+    // (b) - Rank 4 (Match through arithmetic conversion)
 }
 
-//
+// Function to explain the effect of second declaration
 void Exercise53()
 {
+    // (a) The difference between the 2 declarations is that one can change the values in the function whereas one cannot.
+    // (b) Same as 'a'
+    // (c) In this case the const are removed and hence we will end up having 2 function with the same declarations which is illegal
 }
 
-//
+// Function to declare a function that takes two integer parameters and return an int and declares a vector whole elements have this function
+// pointer type
 void Exercise54()
 {
+    // int func(int a, int b);
+
+    // using pFunc1 = decltype(func) *;
+    // typedef decltype(func) *pFunc2;
+    // using pFunc3 = int (*)(int a, int b);
+    // using pFunc4 = int(int a, int b);
+    // typedef int(*pFunc5)(int a, int b);
+    // using pFunc6 = decltype(func);
+
+    // std::vector<pFunc1> vec1;
+    // std::vector<pFunc2> vec2;
+    // std::vector<pFunc3> vec3;
+    // std::vector<pFunc4*> vec4;
+    // std::vector<pFunc5> vec5;
+    // std::vector<pFunc6*> vec6;
+    // Credits: https://github.com/Mooophy/Cpp-Primer/blob/master/ch06/README.md
 }
 
-//
+// 4 functions to add, sub, mult and divide
 void Exercise55()
 {
+    /*
+        inline int add(int x, int y) {return x + y;}
+        inline int sub(int x, int y) {return x - y;}
+        inline int mul(int x, int y) {return x * y;}
+        inline int div(int x, int y) {return y == 0 ? y / x : x / y;}
+    */
 }
 
 //
 void Exercise56()
 {
+        /*
+        
+        inline int add(int x, int y) {return x + y;}
+        inline int sub(int x, int y) {return x - y;}
+        inline int mul(int x, int y) {return x * y;}
+        inline int div(int x, int y) {return y == 0 ? y / x : x / y;}
+        inline void printIntVector(vector<int>::const_iterator beg, vector<int>::const_iterator end)
+        {
+            while (beg != end) cout << *beg++ << '\n';
+        }
+
+        int main()
+        {
+            vector<int> ivec;
+            int x, y;
+            cout << "Enter 2 numbers to add: ";
+            cin >> x >> y;
+            ivec.push_back(add(x,y));
+
+            cout << "Enter 2 numbers to sub: ";
+            cin >> x >> y;
+            ivec.push_back(sub(x,y));
+
+            cout << "Enter 2 numbers to mul: ";
+            cin >> x >> y;
+            ivec.push_back(mul(x,y));
+
+            cout << "Enter 2 numbers to div: ";
+            cin >> x >> y;
+            ivec.push_back(div(x,y));
+        }
+    */
 }
