@@ -66,15 +66,8 @@ void Exercise54();
 void Exercise55();
 void Exercise56();
 
-void Dummy()
-{
-    vector<int> ivec = {2,4,6,8,10,12,14,16,18,20};
-    Exercise47(ivec.cbegin(), ivec.cend());
-}
-
 int main()
 {
-    Dummy();
     // Exercise01();
     // Exercise02();
     // Exercise03();
