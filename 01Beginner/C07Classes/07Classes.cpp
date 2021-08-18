@@ -4,6 +4,17 @@
 #include "Sales_Data.h"
 #include "Person.h"
 
+class Y;
+
+class X
+{
+    Y *y = nullptr;
+};
+
+class Y {
+    X x;
+};
+
 using std::cerr;
 using std::cin;
 using std::cout;
@@ -11,41 +22,7 @@ using std::string;
 
 void Dummy()
 {
-    // NEW Sales_Data
-    Sales_Data total;
-    cout << "Enter book number, units sold and revenue or enter 0 to exit: ";
-    if (read(cin, total))
-    {
-        if (total.isbn() == "0" || total.getUnitsSold() == 0 || total.getRevenue() == 0)
-            return;
-        cout << "Enter book number, units sold and revenue or enter 0 to exit: ";
-        Sales_Data bookItem;
-        while (read(cin, bookItem))
-        {
-            if (bookItem.isbn() == "0" || bookItem.getUnitsSold() == 0 || bookItem.getRevenue() == 0)
-                return;
-            else if (total.isbn() == bookItem.isbn())
-            {
-                total.combine(bookItem);
-                print(cout, total);
-            }
-            else
-            {
-                print(cout, total);
-
-                total.setIsbn(bookItem.isbn());
-                total.setUnitsSold(bookItem.getUnitsSold());
-                total.setRevenue(bookItem.getRevenue());
-
-                cout << "Encountered new book number. Changed to new book number: " << total.isbn() << '\n';
-
-                print(cout, total);
-            }
-            cout << "Enter book number, units sold and revenue: ";
-        }
-    }
-    else
-        cerr << "No data entered!\n";
+    X *x;
 }
 
 void Exercise01();
@@ -670,41 +647,197 @@ void Exercise25()
 //
 void Exercise26()
 {
+    // inline double Sales_Data::averagePrice() { return (revenue != 0 ? revenue / units_sold : 0); }
 }
 
 //
 void Exercise27()
 {
+    // #ifndef SCREEN_H
+    // #define SCREEN_H
+
+    // #include <string>
+    // #include <iostream>
+
+    // class Screen {
+    // public:
+    //     using pos = std::string::size_type;
+
+    //     Screen() = default;
+    //     Screen(pos ht, pos wd):height(ht), width(wd), contents(ht*wd, ' '){ }
+    //     Screen(pos ht, pos wd, char c):height(ht), width(wd), contents(ht*wd, c){ }
+
+    //     char get() const { return contents[cursor]; }
+    //     char get(pos r, pos c) const { return contents[r*width+c]; }
+    //     inline Screen& move(pos r, pos c);
+    //     inline Screen& set(char c);
+    //     inline Screen& set(pos r, pos c, char ch);
+
+    //     const Screen& display(std::ostream &os) const { do_display(os); return *this; }
+    //     Screen& display(std::ostream &os) { do_display(os); return *this; }
+
+    // private:
+    //     void do_display(std::ostream &os) const { os << contents; }
+
+    // private:
+    //     pos cursor = 0;
+    //     pos height = 0, width = 0;
+    //     std::string contents;
+    // };
+
+    // inline Screen& Screen::move(pos r, pos c)
+    // {
+    //     cursor = r*width + c;
+    //     return *this;
+    // }
+
+    // inline Screen& Screen::set(char c)
+    // {
+    //     contents[cursor] = c;
+    //     return *this;
+    // }
+
+    // inline Screen& Screen::set(pos r, pos c, char ch)
+    // {
+    //     contents[r*width+c] = ch;
+    //     return *this;
+    // }
+
+    // #endif
 }
 
 //
 void Exercise28()
 {
+    // It would end up returning a new object to the function caller and would not update the values and therefore, the second call to 
+    // display would not print `#`
 }
 
 //
 void Exercise29()
 {
+    // #with '&'
+    // XXXXXXXXXXXXXXXXXXXX#XXXX
+    // XXXXXXXXXXXXXXXXXXXX#XXXX
+    //                 ^^^
+    // # without '&'
+    // XXXXXXXXXXXXXXXXXXXX#XXXX
+    // XXXXXXXXXXXXXXXXXXXXXXXXX
+    //                 ^^^
 }
 
 //
 void Exercise30()
 {
+//Pros
+
+// - more explicit
+
+// - less scope for misreading
+
+// - can use the member function parameter which name is same as the member name.
+
+// Cons
+
+// - more to read
+
+// - sometimes redundant
 }
 
 //
 void Exercise31()
 {
+    // class Y;
+
+    // class X
+    // {
+    //     Y *y = nullptr;
+    // };
+
+    // class Y {
+    //     X x;
+    // };
 }
 
 //
 void Exercise32()
 {
+    // #ifndef SCREEN_H
+    // #define SCREEN_H
+    // #include <vector>
+    // #include <string>
+    // #include <iostream>
+
+    // class Screen;
+
+    // class Window_mgr {
+    // public:
+    //     using ScreenIndex = std::vector<Screen>::size_type;
+    //     inline void clear(ScreenIndex);
+    // private:
+    //     std::vector<Screen> screens;
+    // };
+
+    // class Screen {
+    //     friend void Window_mgr::clear(ScreenIndex);
+    // public:
+    //     using pos = std::string::size_type;
+
+    //     Screen() = default; // 1
+    //     Screen(pos ht, pos wd):height(ht), width(wd), contents(ht*wd, ' '){ } // 2
+    //     Screen(pos ht, pos wd, char c):height(ht), width(wd), contents(ht*wd, c){ } // 3
+
+    //     char get() const { return contents[cursor]; }
+    //     char get(pos r, pos c) const { return contents[r*width+c]; }
+    //     inline Screen& move(pos r, pos c);
+    //     inline Screen& set(char c);
+    //     inline Screen& set(pos r, pos c, char ch);
+
+    //     const Screen& display(std::ostream &os) const { do_display(os); return *this; }
+    //     Screen& display(std::ostream &os) { do_display(os); return *this; }
+
+    // private:
+    //     void do_display(std::ostream &os) const { os << contents; }
+
+    // private:
+    //     pos cursor = 0;
+    //     pos height = 0, width = 0;
+    //     std::string contents;
+    // };
+
+    // inline void Window_mgr::clear(ScreenIndex i)
+    // { 
+    //     if (i >= screens.size()) return;    // judge for out_of_range.
+    //     Screen &s = screens[i];
+    //     s.contents = std::string(s.height * s.width, ' ');
+    // }
+
+    // inline Screen& Screen::move(pos r, pos c)
+    // {
+    //     cursor = r*width + c;
+    //     return *this;
+    // }
+
+    // inline Screen& Screen::set(char c)
+    // {
+    //     contents[cursor] = c;
+    //     return *this;
+    // }
+
+    // inline Screen& Screen::set(pos r, pos c, char ch)
+    // {
+    //     contents[r*width+c] = ch;
+    //     return *this;
+    // }
 }
 
 //
 void Exercise33()
 {
+    // Screen::pos Screen::size() const
+    // {
+    //     return height*width;
+    // }
 }
 
 //
